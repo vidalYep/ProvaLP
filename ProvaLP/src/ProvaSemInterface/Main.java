@@ -2,79 +2,97 @@ package ProvaSemInterface;
 
 import java.util.*;
 
+class Jogador {
+    private String nome;
+    private int votos;
+
+    public Jogador(String nome) {
+        this.nome = nome;
+        this.votos = 0;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getVotos() {
+        return votos;
+    }
+
+    public void incrementaUmVoto() {
+        this.votos++;
+    }
+}
+
 public class Main {
-
     public static void main(String[] args) {
-
-        Map<String, Integer> NumeroVotos = new HashMap<>();
-        ArrayList<String> jogadores = new ArrayList<>();
-        jogadores.add("Alane Dias");
-        jogadores.add("Beatriz Reis");
-        jogadores.add("Davi Brito");
-        jogadores.add("Deniziane Ferreira");
-        jogadores.add("Fernanda Bande");
-        jogadores.add("Giovanna Lima");
-        jogadores.add("Giovanna Pitel");
-        jogadores.add("Isabelle Nogueira");
-        jogadores.add("Juninho");
-        jogadores.add("Leidy Elin");
-        jogadores.add("Lucas Henrique");
-        jogadores.add("Lucas Luigi");
-        jogadores.add("Lucas Pizane");
-        jogadores.add("Marcus Vinicius");
-        jogadores.add("Matteus Amaral");
-        jogadores.add("Maycon Cosmer");
-        jogadores.add("MC Bin Laden");
-        jogadores.add("Michel Nogueira");
-        jogadores.add("Nizam");
-        jogadores.add("Raquele Cardozo");
-        jogadores.add("Rodriguinho");
-        jogadores.add("Thalyta Alves");
-        jogadores.add("Vanessa Lopes");
-        jogadores.add("Vinicius Rodrigues");
-        jogadores.add("Wanessa Camargo");
-        jogadores.add("Yasmin Brunet");
-
-
+        ArrayList<Jogador> jogadores = new ArrayList<>();
+        jogadores.add(new Jogador("Alane Dias"));
+        jogadores.add(new Jogador("Beatriz Reis"));
+        jogadores.add(new Jogador("Davi Brito"));
+        jogadores.add(new Jogador("Deniziane Ferreira"));
+        jogadores.add(new Jogador("Fernanda Bande"));
+        jogadores.add(new Jogador("Giovanna Lima"));
+        jogadores.add(new Jogador("Giovanna Pitel"));
+        jogadores.add(new Jogador("Isabelle Nogueira"));
+        jogadores.add(new Jogador("Juninho"));
+        jogadores.add(new Jogador("Leidy Elin"));
+        jogadores.add(new Jogador("Lucas Henrique"));
+        jogadores.add(new Jogador("Lucas Luigi"));
+        jogadores.add(new Jogador("Lucas Pizane"));
+        jogadores.add(new Jogador("Marcus Vinicius"));
+        jogadores.add(new Jogador("Matteus Amaral"));
+        jogadores.add(new Jogador("Maycon Cosmer"));
+        jogadores.add(new Jogador("MC Bin Laden"));
+        jogadores.add(new Jogador("Michel Nogueira"));
+        jogadores.add(new Jogador("Nizam"));
+        jogadores.add(new Jogador("Raquele Cardozo"));
+        jogadores.add(new Jogador("Rodriguinho"));
+        jogadores.add(new Jogador("Thalyta Alves"));
+        jogadores.add(new Jogador("Vanessa Lopes"));
+        jogadores.add(new Jogador("Vinicius Rodrigues"));
+        jogadores.add(new Jogador("Wanessa Camargo"));
+        jogadores.add(new Jogador("Yasmin Brunet"));
 
         Scanner objeto = new Scanner(System.in);
+        int totalVotos = 0;
 
-        while(true) {
+        while (true) {
+            System.out.println("Digite um nome (ou 'sair' para encerrar): ");
+            String nomeJogador = objeto.nextLine();
 
-
-            System.out.println("Digite um nome (ou sair para encerrar): ");
-            String NomeJogador = objeto.nextLine();
-
-            if (NomeJogador.equalsIgnoreCase("sair")){
+            if (nomeJogador.equalsIgnoreCase("sair")) {
                 break;
             }
 
-
-            if (jogadores.contains(NomeJogador)) {
-
-                if (NumeroVotos.containsKey(NomeJogador)){
-
+            boolean jogadorEncontrado = false;
+            for (Jogador jogador : jogadores) {
+                if (jogador.getNome().equalsIgnoreCase(nomeJogador)) {
+                    jogador.incrementaUmVoto();
+                    jogadorEncontrado = true;
+                    totalVotos++;
+                    break;
                 }
+            }
 
-
-            } else {
-                System.out.printf("Esse nome nao existe para ser votado");
+            if (!jogadorEncontrado) {
+                System.out.println("Esse nome não existe para ser votado");
             }
         }
 
-        int TotalVotos = 0;
+        // Encontra o jogador mais votado
+        Jogador jogadorMaisVotado = jogadores.get(0);
+        for (Jogador jogador : jogadores) {
+            if (jogador.getVotos() > jogadorMaisVotado.getVotos()) {
+                jogadorMaisVotado = jogador;
+            }
+        }
 
-
-        System.out.printf("“Se eu conseguir mover montanhas, se eu conseguir surfar um tsunami, se eu conseguir\n" +
-                "domar o sol, se eu conseguir fazer o mar virar sertão, e o sertão virar mar, se eu\n" +
-                "conseguir dizer o que eu nunca vou conseguir dizer, aí terá chegado o dia em que eu\n" +
-                "vou conseguir te eliminar com alegria. Com" + TotalVotos + "votos, é você quem sai\n" +
-                 "."
-        );
-
+        // Exibe o resultado da votação
+        System.out.println("Se eu conseguir mover montanhas, se eu conseguir surfar um tsunami, se eu conseguir "
+                + "domar o sol, se eu conseguir fazer o mar virar sertão, e o sertão virar mar, se eu "
+                + "conseguir dizer o que eu nunca vou conseguir dizer, aí terá chegado o dia em que eu "
+                + "vou conseguir te eliminar com alegria. Com " + totalVotos + " votos, é você quem sai "
+                + jogadorMaisVotado.getNome() + ".");
     }
-
-
-
-
 }
